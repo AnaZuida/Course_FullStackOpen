@@ -25,7 +25,8 @@ const InputForm = ({addName, newName, newNumber ,handleNameChange, handleNumberC
   )
 }
 
-const ListNames = ({persons, namesToShow}) => {
+const ListNames = ({persons, newFilter}) => {
+  const namesToShow = newFilter ? persons.filter(person => person.name.includes(newFilter)) : persons
   return (
     <div>
       <table><tbody>
@@ -49,7 +50,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
   
-  const namesToShow = newFilter ? persons : persons.filter(person => person.name.includes(newFilter))
+  
   
   const addName = (event) => {
     event.preventDefault()
@@ -90,7 +91,7 @@ const App = () => {
       <h2>Add new phonebook entry</h2>
       <InputForm addName={addName} newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <ListNames persons={persons} namesToShow={namesToShow}/>
+      <ListNames persons={persons} newFilter={newFilter}/>
     </div>
   )
 
