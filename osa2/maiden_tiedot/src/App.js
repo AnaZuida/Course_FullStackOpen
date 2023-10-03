@@ -25,10 +25,10 @@ const SearchForm = ({newFilter, handleFilterChange}) => {
 }
 
 const ListCountries = ({countryNames, newFilter, errorMessage}) => {
-  let countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
-  console.log(newFilter)
+  const countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
+  //console.log(newFilter)
   //console.log(countryNames)
-  //console.log(countriesToShow)
+  console.log(countriesToShow)
 
   if(countriesToShow === null) {
     return null
@@ -36,17 +36,17 @@ const ListCountries = ({countryNames, newFilter, errorMessage}) => {
     return errorMessage.setErrorMessage(`Too many matches. Please specify another filter.`)
   } else if (countriesToShow.length == 1) {
     return <CountryInfo countryToShow={countriesToShow[0]} />
-  }
-
-  return (
-    <div>
-      <ul>
-        {countriesToShow.map(country => (
-          <li>{country}<button onClick={() => CountryInfo(country)}>show</button></li>
-        ))}
-      </ul>
-    </div>
-  )
+  } 
+    return (
+      <div>
+        <ul>
+          {countriesToShow.map(country => (
+            <li key={country}>{country}<button onClick={() => CountryInfo(country)}>show</button></li>
+          ))}
+        </ul>
+      </div>
+    )
+  
 }
 
 const CountryInfo = ({countryToShow}) => {
