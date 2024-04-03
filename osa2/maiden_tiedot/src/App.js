@@ -24,8 +24,8 @@ const SearchForm = ({newFilter, handleFilterChange}) => {
   )
 }
 
-const ListCountries = ({countryNames, newFilter, errorMessage}) => {
-  const countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
+const ListCountries = ({countriesToShow, errorMessage}) => {
+  //const countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
   //console.log(newFilter)
   //console.log(countryNames)
   console.log(countriesToShow)
@@ -107,12 +107,12 @@ const CountryInfo = ({countryToShow}) => {
 
 const App = () => {
   const [countries, setCountries] = useState([])
-  const [countryNames, setCountryNames] = useState([])
+  //const [countryNames, setCountryNames] = useState([])
   const [newFilter, setNewFilter] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
-  //let countryNames = []
-  //let countriesToShow = null
+  let countryNames = []
+  let countriesToShow = null
   //let countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
 
   useEffect(() => {
@@ -122,14 +122,15 @@ const App = () => {
           setCountries(initialCountries)
           //setCountryNames(initialCountries.name)
            //countryNames = countries.map(({name}) => name.common)
-           setCountryNames(countries.map(({name}) => name.common))
+           //setCountryNames(countries.map(({name}) => name.common))
+           countryNames = countries.map(({name}) => name.common)
            // console.log(countryNames)
         })   
   }, [])
 
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
-    //countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
+    countriesToShow = newFilter ? countryNames.filter(countryName => countryName.includes(newFilter)) : countryNames
     //console.log(countriesToShow)
   }
 
@@ -137,7 +138,7 @@ const App = () => {
     <div>
       <h2>Country Info Service</h2>
       <SearchForm newFilter={newFilter} handleFilterChange={handleFilterChange}/>
-      <ListCountries countryNames={countryNames} newFilter={newFilter} errorMessage={errorMessage} />
+      <ListCountries countriesToShow={countriesToShow} errorMessage={errorMessage} />
       <Notification message={errorMessage} />
     </div>
   )
