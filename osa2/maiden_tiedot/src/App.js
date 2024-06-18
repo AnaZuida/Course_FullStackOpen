@@ -55,6 +55,14 @@ const CountryInfo = ({countryToShow}) => {
     .getCountry(countryToShow)
       .then(country => {
         countryCapital = country.capital
+      })
+      .catch(error => {
+          setErrorMessage(`Country was not found from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+      })
+  
         return (
           <div>
             <div><h2>{country.name.common}</h2></div>
@@ -75,14 +83,9 @@ const CountryInfo = ({countryToShow}) => {
             </div>
           </div>
         )
-      })
-      /* .catch(error) {
-            setErrorMessage(`Country was not found from server`)
-            setTimeout(() => {
-              setErrorMessage(null)
-            }, 5000)
-          })
-      */
+      }
+      
+
       
   weatherService
     .getWeather(countryCapital)
@@ -103,7 +106,7 @@ const CountryInfo = ({countryToShow}) => {
     </div>
   )
   */
-}
+
 
 const App = () => {
   const [countries, setCountries] = useState([])
